@@ -35,17 +35,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func onNewPhoto(sender: AnyObject) {
         let actionSheet = UIAlertController(title: "New Photo", message: nil, preferredStyle: .ActionSheet)
         
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { action in
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .Default) { action in
             self.showCamera()
-        }))
+        })
         
-        actionSheet.addAction(UIAlertAction(title: "Album", style: .Default, handler: { action in
+        actionSheet.addAction(UIAlertAction(title: "Album", style: .Default) { action in
             self.showAlbum()
-        }))
+        })
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        
-        self.presentViewController(actionSheet, animated: true, completion: nil)
+        presentViewController(actionSheet, animated: true, completion: nil)
     }
     
     func showCamera() {
@@ -93,26 +92,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let bottomConstraint = secondaryMenu.bottomAnchor.constraintEqualToAnchor(bottomMenu.topAnchor)
         let leftConstraint = secondaryMenu.leftAnchor.constraintEqualToAnchor(view.leftAnchor)
         let rightConstraint = secondaryMenu.rightAnchor.constraintEqualToAnchor(view.rightAnchor)
-        
         let heightConstraint = secondaryMenu.heightAnchor.constraintEqualToConstant(44)
         
         NSLayoutConstraint.activateConstraints([bottomConstraint, leftConstraint, rightConstraint, heightConstraint])
         
         view.layoutIfNeeded()
         
-        self.secondaryMenu.alpha = 0
+        secondaryMenu.alpha = 0
         UIView.animateWithDuration(0.4) {
             self.secondaryMenu.alpha = 1.0
         }
     }
 
     func hideSecondaryMenu() {
-        UIView.animateWithDuration(0.4, animations: {
-            self.secondaryMenu.alpha = 0
-            }) { completed in
-                if completed == true {
-                    self.secondaryMenu.removeFromSuperview()
-                }
+        UIView.animateWithDuration(0.4, animations: { self.secondaryMenu.alpha = 0 }) { completed in
+            if completed == true {
+                self.secondaryMenu.removeFromSuperview()
+            }
         }
     }
 
