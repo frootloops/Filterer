@@ -12,10 +12,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     private var instagram: Instagram?
     private var originalImage: UIImage? {
         didSet {
-            imageView.image = originalImage
             filteredImage = nil
+            imageView.image = originalImage
             compareButton.enabled = false
             originalLabel.hidden = false
+            editButton.enabled = false
         }
     }
     
@@ -129,7 +130,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismissViewControllerAnimated(true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             originalImage = image
-            imageView.image = image
         }
     }
     
