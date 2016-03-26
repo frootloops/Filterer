@@ -69,8 +69,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         originalImage = UIImage(named: "scenery")
         imageView.image = originalImage
         
-        compareButton.addTarget(self, action: "showFilteredImage", forControlEvents: .TouchUpInside)
-        compareButton.addTarget(self, action: "showOriginalImage", forControlEvents: .TouchDown)
+        compareButton.addTarget(self, action: #selector(ViewController.showFilteredImage), forControlEvents: .TouchUpInside)
+        compareButton.addTarget(self, action: #selector(ViewController.showOriginalImage), forControlEvents: .TouchDown)
     }
     
     @IBAction func onFilterSliderChange(sender: UISlider) {
@@ -130,9 +130,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func onNewPhoto(sender: AnyObject) {
         let actionSheet = UIAlertController(title: "New Photo", message: nil, preferredStyle: .ActionSheet)
         
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .Default) { action in
-            self.showCamera()
-        })
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            actionSheet.addAction(UIAlertAction(title: "Camera", style: .Default) { action in
+                self.showCamera()
+            })
+        }
         
         actionSheet.addAction(UIAlertAction(title: "Album", style: .Default) { action in
             self.showAlbum()
